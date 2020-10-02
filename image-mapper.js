@@ -5,13 +5,20 @@ const unicornHatHD = new UnicornHatHD('/dev/spidev0.0');
 unicornHatHD.setBrightness(0.95);
 unicornHatHD.clear();
 
-jimp.read('16x16lock.png', (err, image) => {
+jimp.read('mario.jpg', (err, image) => {
   if (err) throw err;
-  for (let x = 0; x < image.getWidth(); x++) {
-    for (let y = 0; y < image.getHeight(); y++) {
-      const color = image.getPixelColor(x, y);
+  const sampleW = image.getWidth() / 16;
+  const sampleH = image.getHeight() / 16;
+  for (let x = 0; x <= 15; x++) {
+    for (let y = 0; y <= 15; y++) {
+      const color = image.getPixelColor(x * sampleW, y * sampleH);
       const rgb = jimp.intToRGBA(color);
-      unicornHatHD.setPixel(x, y, rgb.r, rgb.g, rgb.b);
+      console.log(color);
+      if (color === 4277926143) {
+        unicornHatHD.setPixel(x, y, 0, 0, 0);
+      } else {
+        unicornHatHD.setPixel(x, y, rgb.r, rgb.g, rgb.b);
+      }
     }
 
   }
