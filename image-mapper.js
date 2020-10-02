@@ -13,14 +13,9 @@ jimp.read('mario.jpg', (err, image) => {
     for (let y = 0; y <= 15; y++) {
       const color = image.getPixelColor(x * sampleW, y * sampleH);
       const rgb = jimp.intToRGBA(color);
-      console.log(color);
-      if (color === 4277926143) {
-        unicornHatHD.setPixel(x, y, 0, 0, 0);
-      } else {
-        unicornHatHD.setPixel(x, y, rgb.r, rgb.g, rgb.b);
-      }
+      unicornHatHD.setPixel(x, y, rgb.r, rgb.g, rgb.b);
     }
 
   }
-  unicornHatHD.show(true, false);
+  unicornHatHD.show(true, true);
 });
