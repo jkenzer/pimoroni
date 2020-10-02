@@ -1,6 +1,5 @@
-var UnicornHatHD = require('./unicornhat-hd');
-var unicornHatHD = new UnicornHatHD('/dev/spidev0.0');
-
+const UnicornHatHD = require('./unicornhat-hd');
+const unicornHatHD = new UnicornHatHD('/dev/spidev0.0');
 
 unicornHatHD.setBrightness(0.95);
 unicornHatHD.clear();
@@ -30,30 +29,30 @@ let bpp = [
 let y;
 
 function draw(i) {
-	for (let i in bpp) {
-		y = bpp[i][1];
-		for (let rgb in wrd_rgb) {
-			const color = wrd_rgb[rgb];
-			if (y >= 0 && y <= 15) {
-				unicornHatHD.setPixel(bpp[i][0], y, color[0], color[1], color[2]);
-			}
-			y += 1;
-		}
-		bpp[i][1] -= 1;
-	}
-	unicornHatHD.show(false, false);
+  for (let i in bpp) {
+    y = bpp[i][1];
+    for (let rgb in wrd_rgb) {
+      const color = wrd_rgb[rgb];
+      if (y >= 0 && y <= 15) {
+        unicornHatHD.setPixel(bpp[i][0], y, color[0], color[1], color[2]);
+      }
+      y += 1;
+    }
+    bpp[i][1] -= 1;
+  }
+  unicornHatHD.show(false, false);
 
-	if (i % 5 == 0 || i % 7 == 0) {
-		bpp.push([Math.floor(Math.random() * 16), 15])
-	}
+  if (i % 5 == 0 || i % 7 == 0) {
+    bpp.push([Math.floor(Math.random() * 16), 15])
+  }
 
-	while (bpp.length > 100) {
-		bpp.shift();
-	}
+  while (bpp.length > 100) {
+    bpp.shift();
+  }
 
-	setTimeout(() => {
-		draw(++i);
-	}, 100)
+  setTimeout(() => {
+    draw(++i);
+  }, 100)
 }
 
 draw(0);
