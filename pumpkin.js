@@ -42,6 +42,10 @@ function drawPumpkin() {
       }
     }
   }
+
+  unicornHatHD.rotate();
+  // unicornHatHD.rotate();
+  // unicornHatHD.rotate();
   unicornHatHD.show(true, false);
   setTimeout(() => {
     pumpkin[6].reverse();
