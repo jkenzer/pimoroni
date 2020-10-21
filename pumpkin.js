@@ -7,7 +7,7 @@ unicornHatHD.clear();
 let pumpkin = [
   [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'G', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
   [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'G', 'G', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // top
-  [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'G', 'G', 'G', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', 'G', 'G', 'G', 'G', ' ', ' ', ' ', ' ', ' ', ' '],
   [' ', ' ', ' ', ' ', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', ' ', ' ', ' ', ' '],
   [' ', ' ', ' ', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', ' ', ' ', ' '],
   [' ', ' ', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', ' ', ' '],
@@ -21,6 +21,25 @@ let pumpkin = [
   [' ', ' ', ' ', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', ' ', ' ', ' '],
   [' ', ' ', ' ', ' ', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', ' ', ' ', ' ', ' '], // bottom
   [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+];
+
+let ghost = [
+  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', 'R', 'R', 'R', 'R', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', ' ', ' ', ' '],
+  [' ', ' ', 'R', 'R', 'R', 'W', 'W', 'R', 'R', 'R', 'R', 'W', 'W', 'R', ' ', ' '],
+  [' ', ' ', 'R', 'R', 'W', 'W', 'W', 'W', 'R', 'R', 'W', 'W', 'W', 'W', ' ', ' '],
+  [' ', ' ', 'R', 'R', 'W', 'W', 'B', 'B', 'R', 'R', 'W', 'W', 'B', 'B', ' ', ' '],
+  [' ', 'R', 'R', 'R', 'W', 'W', 'B', 'B', 'R', 'R', 'W', 'W', 'B', 'B', 'R', ' '],
+  [' ', 'R', 'R', 'R', 'R', 'W', 'W', 'R', 'R', 'R', 'R', 'W', 'W', 'R', 'R', ' '],
+  [' ', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', ' '],
+  [' ', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', ' '],
+  [' ', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', ' '],
+  [' ', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', ' '],
+  [' ', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', ' '],
+  [' ', 'R', 'R', ' ', 'R', 'R', 'R', ' ', ' ', 'R', 'R', 'R', ' ', 'R', 'R', ' '],
+  [' ', 'R', ' ', ' ', ' ', 'R', 'R', ' ', ' ', 'R', 'R', ' ', ' ', ' ', 'R', ' '],
 ];
 
 function drawPumpkin() {
@@ -42,6 +61,10 @@ function drawPumpkin() {
       }
     }
   }
+
+  unicornHatHD.rotate();
+  // unicornHatHD.rotate();
+  // unicornHatHD.rotate();
   unicornHatHD.show(true, false);
   setTimeout(() => {
     pumpkin[6].reverse();
@@ -51,4 +74,36 @@ function drawPumpkin() {
     drawPumpkin();
   }, 550)
 }
-drawPumpkin();
+function drawGhost() {
+
+  for (let row = 0; row < ghost.length; row++) {
+    const pixels = ghost[row];
+    for (let p = 0; p < pixels.length; p++) {
+      if (pixels[p] == "R") {
+        unicornHatHD.setPixel(row, p, 255, 0, 0);
+      }
+      if (pixels[p] == "W") {
+        unicornHatHD.setPixel(row, p, 255, 255, 255);
+      }
+      if (pixels[p] == " " || pixels[p] == "B") {
+        unicornHatHD.setPixel(row, p, 0, 0, 0);
+      }
+    }
+  }
+
+  unicornHatHD.rotate();
+  // unicornHatHD.rotate();
+  // unicornHatHD.rotate();
+  unicornHatHD.show(true, false);
+  setTimeout(() => {
+    ghost[3].reverse();
+    ghost[4].reverse();
+    ghost[5].reverse();
+    ghost[6].reverse();
+    ghost[7].reverse();
+    ghost[8].reverse();
+    drawGhost();
+  }, 550)
+}
+// drawPumpkin();
+drawGhost();
