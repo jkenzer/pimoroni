@@ -1,6 +1,9 @@
 const UnicornHatHD = require('./unicornhat-hd');
 const unicornHatHD = new UnicornHatHD('/dev/spidev0.0');
 
+let pumpkinTimeout;
+let ghostTimeout;
+
 unicornHatHD.setBrightness(0.95);
 unicornHatHD.clear();
 
@@ -66,7 +69,7 @@ function drawPumpkin() {
   // unicornHatHD.rotate();
   // unicornHatHD.rotate();
   unicornHatHD.show(true, false);
-  setTimeout(() => {
+  pumpkinTimeout = setTimeout(() => {
     pumpkin[6].reverse();
     pumpkin[7].reverse();
     pumpkin[10].reverse();
@@ -95,7 +98,7 @@ function drawGhost() {
   // unicornHatHD.rotate();
   // unicornHatHD.rotate();
   unicornHatHD.show(true, false);
-  setTimeout(() => {
+  ghostTimeout = setTimeout(() => {
     ghost[3].reverse();
     ghost[4].reverse();
     ghost[5].reverse();
@@ -105,5 +108,22 @@ function drawGhost() {
     drawGhost();
   }, 550)
 }
+
+let sceneCounter = 0;
+function alternateScene() {
+  if (sceneCounter % 2 == 0) {
+    clearTimeout(ghostTimeout);
+    drawPumpkin();
+  } else {
+    clearTimeout(pumpkinTimeout);
+    drawGhost();
+  }
+  sceneCounter++;
+  setTimeout(() => {
+    alternateScene();
+  }, 10000)
+}
+
+alternateScene();
 // drawPumpkin();
-drawGhost();
+// drawGhost();
